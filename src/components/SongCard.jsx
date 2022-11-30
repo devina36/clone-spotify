@@ -8,9 +8,15 @@ import { playPause, setActiveSong } from '../redux/features/playerSlice';
 
 const SongCard = ({ song, i, data, isPlaying, activeSong }) => {
   const dispatch = useDispatch();
-  const handlePauseClick = () => {};
 
-  const handlePlayClick = () => {};
+  const handlePauseClick = () => {
+    dispatch(playPause(false));
+  };
+
+  const handlePlayClick = () => {
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
+  };
 
   return (
     <div className=" flex flex-col w-[250px] p-4 bg-white group bg-opacity-5 hover:bg-opacity-20 transition-all ease-out duration-500 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
@@ -21,11 +27,11 @@ const SongCard = ({ song, i, data, isPlaying, activeSong }) => {
             activeSong?.title === song.title ? `flex` : `hidden`
           } group-hover:flex right-3 bottom-5`}
         >
-          <div className="group-hover:animate-slideup2 bg-[#000] rounded-full group-hover:duration-75 overflow-hidden">
+          <div className="group-hover:animate-slideup2 bg-[#000] outline-none rounded-full group-hover:duration-75 overflow-hidden">
             <PlayPause
               song={song}
               handlePause={handlePauseClick}
-              handPlay={handlePlayClick}
+              handlePlay={handlePlayClick}
               isPlaying={isPlaying}
               activeSong={activeSong}
             />
