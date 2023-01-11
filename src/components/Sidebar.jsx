@@ -1,3 +1,6 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/order */
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
@@ -12,7 +15,7 @@ const NavLinks = ({ handleClick }) => (
       <NavLink
         key={item.name}
         to={item.to}
-        className="flex flex-row my-8 items-center justify-start font-medium 
+        className="flex flex-row my-8 items-center justify-start font-medium  
         text-sm text-white hover:text-green-600"
         onClick={() => handleClick && handleClick()}
       >
