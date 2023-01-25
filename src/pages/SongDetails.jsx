@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
 import { useGetSongDetailsQuery, useGetSongRelatedQuery } from '../redux/services/shazamCore';
+import { setActiveSong, playPause } from '../redux/features/playerSlice';
 
 const SongDetails = () => {
   const { songid } = useParams();
@@ -19,7 +20,7 @@ const SongDetails = () => {
     dispatch(playPause(true));
   };
 
-  if (isFetchingSongDetails || isFetchingRelatedSongs) return <Loader title="Searching song details" />;
+  if (isFetchingSongDetails && isFetchingRelatedSongs) return <Loader title="Searching song details" />;
 
   if (error) return <Error />;
 
@@ -32,14 +33,12 @@ const SongDetails = () => {
         <div className="mt-5">
           {songData?.sections[1].type === 'LYRICS' ? (
             songData?.sections[1].text.map((line, i) => (
-              <p key={i} className="text-gray-400 text-base my-1">
+              <p key={`lyrics-${line}-${i}`} className="text-gray-400 text-base my-1">
                 {line}
               </p>
             ))
           ) : (
-            <p key={'sorry'} className="text-gray-400 text-base my-1">
-              Sorry, no lyrics found!
-            </p>
+            <p className="text-gray-400 text-base my-1">Sorry, no lyrics found!</p>
           )}
         </div>
       </div>
